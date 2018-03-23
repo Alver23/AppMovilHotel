@@ -5,7 +5,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 
 /**
@@ -63,7 +63,7 @@ class DeveloperMenu extends Component {
 
     const buttons = [
       this.renderMenuItem('Clear state', this.clearState),
-      this.renderMenuItem('Cancel', this.closeMenu)
+      this.renderMenuItem('Cancel', this.closeMenu),
     ];
 
     return (
@@ -82,14 +82,14 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#fff'
+    backgroundColor: 'gray',
   },
   menu: {
     backgroundColor: 'white',
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   menuItem: {
     flex: 1,
@@ -98,11 +98,11 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#eee',
     padding: 10,
-    height: 60
+    height: 60,
   },
   menuItemText: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
 
 export default DeveloperMenu;

@@ -5,20 +5,24 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  View
+  View,
+  Button,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+// Components
+import Logo from '../../components/Navigation/Logo';
+
 class CounterView extends Component {
   static displayName = 'CounterView';
 
-  static navigationOptions = {
-    title: 'Counter',
-    tabBarIcon: (props) => (
-        <Icon name='plus-one' size={24} color={props.tintColor} />
-      )
-  }
+  static navigationOptions = ({navigation}) => {
+
+    return {
+      headerTitle: <Logo />,
+    };
+  };
 
   static propTypes = {
     counter: PropTypes.number.isRequired,
@@ -28,9 +32,9 @@ class CounterView extends Component {
     counterStateActions: PropTypes.shape({
       increment: PropTypes.func.isRequired,
       reset: PropTypes.func.isRequired,
-      random: PropTypes.func.isRequired
+      random: PropTypes.func.isRequired,
     }).isRequired,
-    navigate: PropTypes.func.isRequired
+    navigate: PropTypes.func.isRequired,
   };
 
   increment = () => {
@@ -61,7 +65,7 @@ class CounterView extends Component {
           source={{
             uri: this.props.userProfilePhoto,
             width: 80,
-            height: 80
+            height: 80,
           }}
           />
         <Text style={styles.linkButton}>
@@ -124,7 +128,7 @@ const circle = {
   borderWidth: 0,
   borderRadius: 40,
   width: 80,
-  height: 80
+  height: 80,
 };
 
 const styles = StyleSheet.create({
@@ -132,40 +136,40 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   userContainer: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   userProfilePhoto: {
     ...circle,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   counterButton: {
     ...circle,
     backgroundColor: '#349d4a',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 20
+    margin: 20,
   },
   counter: {
     color: 'white',
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   welcome: {
     textAlign: 'center',
     color: 'black',
     marginBottom: 5,
-    padding: 5
+    padding: 5,
   },
   linkButton: {
     textAlign: 'center',
     color: '#CCCCCC',
     marginBottom: 10,
-    padding: 5
-  }
+    padding: 5,
+  },
 });
 
 export default CounterView;

@@ -3,14 +3,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
+  Text,
+  AppState,
   StatusBar,
   StyleSheet,
   BackHandler,
   ActivityIndicator,
 } from 'react-native';
 
-
-import NavigatorViewContainer from '../navigator/NavigatorViewContainer';
+import NavigationContainer from '../Navigation/Container';
 import * as snapshotUtil from '../../utils/snapshot';
 import * as SessionStateActions from '../session/SessionState';
 import store from '../../redux/store';
@@ -25,6 +26,13 @@ class AppView extends Component {
     isReady: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      appState: AppState.currentState,
+    };
+  }
 
   navigateBack() {
     const navigatorState = store.getState().get('navigatorState');
@@ -74,7 +82,8 @@ class AppView extends Component {
     return (
       <View style={{flex: 1}}>
         <StatusBar backgroundColor='#455a64' barStyle='light-content' />
-        <NavigatorViewContainer />
+        <NavigationContainer />
+        {__DEV__ && (<Text>Current state is: {this.state.appState}</Text>)}
         {__DEV__ && <DeveloperMenu />}
       </View>
     );

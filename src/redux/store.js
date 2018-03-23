@@ -1,11 +1,23 @@
-import {applyMiddleware, createStore, compose} from 'redux';
+// Dependencies
 import * as reduxLoop from 'redux-loop-symbol-ponyfill';
+import {
+  compose,
+  createStore,
+  applyMiddleware,
+} from 'redux';
+
+// Relative Path
 import middleware from './middleware';
 import reducer from './reducer';
+import rootSagas from './sagas';
+import sagaMiddleware from './middleware/sagaMiddleware';
 
 const enhancers = [
-  applyMiddleware(...middleware),
-  reduxLoop.install()
+  applyMiddleware(
+    ...middleware,
+    sagaMiddleware,
+  ),
+  reduxLoop.install(),
 ];
 
 /* Enable redux dev tools only in development.
@@ -14,10 +26,10 @@ const enhancers = [
  */
 /* eslint-disable no-undef */
 const composeEnhancers = (
-	__DEV__ &&
-	typeof (window) !== 'undefined' &&
-	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-	) || compose;
+  __DEV__ &&
+  typeof (window) !== 'undefined' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+) || compose;
 /* eslint-enable no-undef */
 
 const enhancer = composeEnhancers(...enhancers);
@@ -28,5 +40,7 @@ const store = createStore(
   null,
   enhancer
 );
+
+sagaMiddleware.run(rootSagas);
 
 export default store;
