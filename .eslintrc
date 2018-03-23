@@ -27,7 +27,7 @@
     "semi": [2,"always"],
     "no-console": 0,
     "max-len": [1,110],
-    "comma-dangle": [2,"never"],
+    "comma-dangle": [2,"always-multiline"],
     "no-cond-assign": [2, "always"],
     "no-ex-assign": 2,
     "curly": 2,
@@ -55,8 +55,8 @@
       "overrides": {
         "?": "before",
         ":": "before"
-        }
       }
+    }
     ],
     "keyword-spacing": ["error", {before: true, after: true}],
     "space-before-blocks": [2, "always"],
@@ -140,11 +140,11 @@
     "react/no-did-update-set-state": 1,
     "react/no-multi-comp": 1,
     "react/no-unknown-property": 1,
-    "react/prop-types": 1,
+    "react/prop-types": 2,
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
-    "react/wrap-multilines": 1,
+    "react/jsx-wrap-multilines": 1,
     "babel/generator-star-spacing": 1,
     "babel/new-cap": 0,
     "babel/object-curly-spacing": [2, "never"],
