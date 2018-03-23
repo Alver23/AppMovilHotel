@@ -1,4 +1,7 @@
+// Dependencies
 import {connect} from 'react-redux';
+
+// View
 import AppView from './AppView';
 
 export default connect(

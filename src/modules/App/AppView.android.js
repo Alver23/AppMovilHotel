@@ -1,19 +1,49 @@
+// Dependencies
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet, StatusBar, ActivityIndicator} from 'react-native';
-import NavigatorViewContainer from './navigator/NavigatorViewContainer';
-import * as snapshotUtil from '../utils/snapshot';
-import * as SessionStateActions from '../modules/session/SessionState';
-import store from '../redux/store';
-import DeveloperMenu from '../components/DeveloperMenu';
+import {
+  View,
+  StatusBar,
+  StyleSheet,
+  BackHandler,
+  ActivityIndicator,
+} from 'react-native';
+
+
+import NavigatorViewContainer from '../navigator/NavigatorViewContainer';
+import * as snapshotUtil from '../../utils/snapshot';
+import * as SessionStateActions from '../session/SessionState';
+import store from '../../redux/store';
+import DeveloperMenu from '../../components/DeveloperMenu';
+
+import {NavigationActions} from 'react-navigation';
 
 class AppView extends Component {
   static displayName = 'AppView';
 
   static propTypes = {
     isReady: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
   };
+
+  navigateBack() {
+    const navigatorState = store.getState().get('navigatorState');
+
+    const currentStackScreen = navigatorState.get('index');
+    const currentTab = navigatorState.getIn(['routes', 0, 'index']);
+
+    if (currentTab !== 0 || currentStackScreen !== 0) {
+      store.dispatch(NavigationActions.back());
+      return true;
+    }
+
+    // otherwise let OS handle the back button action
+    return false;
+  }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.navigateBack);
+  }
 
   componentDidMount() {
     snapshotUtil.resetSnapshot()
@@ -54,8 +84,8 @@ class AppView extends Component {
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 });
 
 export default AppView;
